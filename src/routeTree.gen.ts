@@ -11,24 +11,18 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as BoardImport } from './routes/$board'
 import { Route as IndexImport } from './routes/index'
-import { Route as LocaleIndexImport } from './routes/$locale.index'
-import { Route as LocaleBoardImport } from './routes/$locale.$board'
 
 // Create/Update Routes
 
+const BoardRoute = BoardImport.update({
+  path: '/$board',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexRoute = IndexImport.update({
   path: '/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const LocaleIndexRoute = LocaleIndexImport.update({
-  path: '/$locale/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const LocaleBoardRoute = LocaleBoardImport.update({
-  path: '/$locale/$board',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -43,18 +37,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/$locale/$board': {
-      id: '/$locale/$board'
-      path: '/$locale/$board'
-      fullPath: '/$locale/$board'
-      preLoaderRoute: typeof LocaleBoardImport
-      parentRoute: typeof rootRoute
-    }
-    '/$locale/': {
-      id: '/$locale/'
-      path: '/$locale'
-      fullPath: '/$locale'
-      preLoaderRoute: typeof LocaleIndexImport
+    '/$board': {
+      id: '/$board'
+      path: '/$board'
+      fullPath: '/$board'
+      preLoaderRoute: typeof BoardImport
       parentRoute: typeof rootRoute
     }
   }
@@ -62,11 +49,7 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({
-  IndexRoute,
-  LocaleBoardRoute,
-  LocaleIndexRoute,
-})
+export const routeTree = rootRoute.addChildren({ IndexRoute, BoardRoute })
 
 /* prettier-ignore-end */
 
@@ -77,18 +60,14 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/$locale/$board",
-        "/$locale/"
+        "/$board"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/$locale/$board": {
-      "filePath": "$locale.$board.tsx"
-    },
-    "/$locale/": {
-      "filePath": "$locale.index.tsx"
+    "/$board": {
+      "filePath": "$board.tsx"
     }
   }
 }
