@@ -1,5 +1,13 @@
 {
   "home": {
-    "welcome": "Bem-vinde ao StreamTheater"
+    "welcome": "Bem-vinde ao Nazuri"
+  },
+  "board": {
+    "sidebar": {
+      "selector": {
+        "title": "Seletor",
+        "description": "Escolha os streamers e/ou grupos que deseja assistir"
+      }
+    }
   }
 }
